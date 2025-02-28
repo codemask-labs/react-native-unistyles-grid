@@ -1,0 +1,10 @@
+{
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "strict": true,
+        "paths": {
+            "react-native-unistyles-grid": ["../src"],
+            "react-native-unistyles": ["../node_modules/react-native-unistyles"]
+        }
+    }
+}
