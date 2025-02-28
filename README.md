@@ -2,5 +2,6 @@
 
 ### TODO
 
--   [ ] Handle breakpoints in configs
 -   [ ] Readme
+-   [ ] Separated Web implementation
+-   [ ] Unistyles 3.0 branch

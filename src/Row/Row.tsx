@@ -1,34 +1,19 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { UnistylesRuntime, useStyles } from 'react-native-unistyles'
+import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGridContext } from '../config'
-import { ColProps, ExtraColProps, OrderValue, RowProps, UniBreakpointValues } from '../types'
-import { isBreakpointKeyValuePair, isValidCol } from '../utils'
+import { ColProps, ExtraColProps, GridConfig, OrderValue, RowProps, UniBreakpointValues } from '../types'
+import { getClosestBreakpointValue, isValidCol } from '../utils'
 
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
     children,
     columnGap,
 }) => {
-    const { breakpoint } = useStyles()
+    const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
 
     const extractOrderValue = (child: React.ReactElement<ColProps>) => {
-        if (!breakpoint) {
-            return null
-        }
-
-        const breakpoints = UnistylesRuntime.breakpoints as UniBreakpointValues
-        const breakpointProps = Object.entries(child.props)
-            // Filter out non-breakpoint props
-            .filter(isBreakpointKeyValuePair)
-            // Sort in descending order
-            .sort(([a], [b]) => {
-                return breakpoints[b] - breakpoints[a]
-            })
-        // Get breakpoint prop with highest priority
-        const [_, currentBreakpointProp] = breakpointProps.find(
-            ([key]) => breakpoints[key] <= breakpoints[breakpoint],
-        ) ?? []
+        const currentBreakpointProp = getClosestBreakpointValue(child.props)
 
         if (typeof currentBreakpointProp === 'object' && 'order' in currentBreakpointProp) {
             return currentBreakpointProp.order ?? null
@@ -77,12 +62,9 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
 
     return (
         <View
-            style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                rowGap: context.rowGap,
+            style={styles.row({
                 columnGap: columnGap ?? context.columnGap,
-            }}
+            })}
         >
             <UnistylesGridContext.Provider
                 value={{
@@ -95,3 +77,12 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
         </View>
     )
 }
+
+const stylesheet = createStyleSheet({
+    row: (config: Partial<GridConfig>) => ({
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        rowGap: config.rowGap as number,
+        columnGap: config.columnGap as number,
+    }),
+})

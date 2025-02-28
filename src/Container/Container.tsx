@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
+import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGrid, UnistylesGridContext } from '../config'
-import { ContainerProps } from '../types'
+import { ContainerProps, GridConfig } from '../types'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
     children,
@@ -9,15 +10,15 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     rowGap,
 }) => {
     const [parentWidth, setParentWidth] = useState(0)
+    const { styles } = useStyles(stylesheet)
 
     return (
         <View
             onLayout={event => setParentWidth(event.nativeEvent.layout.width)}
-            style={{
-                flex: 1,
-                padding: containerPadding ?? UnistylesGrid.config.containerPadding,
-                rowGap: rowGap ?? UnistylesGrid.config.rowGap,
-            }}
+            style={styles.container({
+                rowGap,
+                containerPadding,
+            })}
         >
             <UnistylesGridContext.Provider
                 value={{
@@ -31,3 +32,11 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
         </View>
     )
 }
+
+const stylesheet = createStyleSheet({
+    container: (config: Partial<GridConfig>) => ({
+        flex: 1,
+        padding: (config.containerPadding ?? UnistylesGrid.config.containerPadding) as number,
+        rowGap: (config.rowGap ?? UnistylesGrid.config.rowGap) as number,
+    }),
+})

@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGridContext } from '../config'
 import { ColProps, ExtraColProps, UniBreakpointValues } from '../types'
-import { reduceObject } from '../utils'
+import { getClosestBreakpointValue, reduceObject } from '../utils'
 
 type ExtendedColProps = ColProps & ExtraColProps
 
@@ -20,13 +20,23 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = p
 }
 
 const stylesheet = createStyleSheet({
-    col: ({ isFirst, isLast, ...props }: ExtendedColProps, context: React.ContextType<typeof UnistylesGridContext>) => {
+    col: (
+        { isFirst, isLast, ...props }: ExtendedColProps,
+        context: React.ContextType<typeof UnistylesGridContext>,
+    ) => {
         const getSizeInPx = (size: string | number | undefined) => {
             if (size === 12) {
                 return '100%'
             }
 
-            return ((parseInt(size as string) / 12) * (context.parentWidth - (context.containerPadding * 2))) - (context.columnGap / 2)
+            const padding = typeof context.containerPadding === 'number'
+                ? context.containerPadding
+                : getClosestBreakpointValue(context.containerPadding) ?? 0
+            const gap = typeof context.columnGap === 'number'
+                ? context.columnGap
+                : getClosestBreakpointValue(context.columnGap) ?? 0
+
+            return ((parseInt(size as string) / 12) * (context.parentWidth - (padding * 2))) - (gap / 2)
         }
 
         return {

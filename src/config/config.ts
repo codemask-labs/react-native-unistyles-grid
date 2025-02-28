@@ -1,9 +1,9 @@
-import { DEFAULT_CONFIG, GridConfid } from '../types'
+import { DEFAULT_CONFIG, GridConfig } from '../types'
 
-class GridConfig {
-    #config = DEFAULT_CONFIG
+class UnistylesGridBuilder {
+    #config = DEFAULT_CONFIG as GridConfig
 
-    init = (config: Partial<GridConfid>) => {
+    init = (config: Partial<GridConfig>) => {
         this.#config = {
             ...DEFAULT_CONFIG,
             ...config,
@@ -15,4 +15,4 @@ class GridConfig {
     }
 }
 
-export const UnistylesGrid = new GridConfig()
+export const UnistylesGrid = new UnistylesGridBuilder()
