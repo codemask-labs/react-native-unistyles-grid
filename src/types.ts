@@ -38,4 +38,3 @@ type SimpleGridConfig = typeof DEFAULT_CONFIG
 export type GridConfig = {
     [K in keyof SimpleGridConfig]: WithBreakpoint<SimpleGridConfig[K]>
 }
-

@@ -1,9 +1,20 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { Col } from '../Col/ColNative'
 import { UnistylesGridContext } from '../config'
 import { ColProps, GridConfig, OrderValue, RowProps, UniBreakpointValues } from '../types'
-import { getClosestBreakpointValue, isValidCol } from '../utils'
+import { getClosestBreakpointValue } from '../utils'
+
+const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
+    const valid = React.isValidElement(element) && element.type === Col
+
+    if (!valid) {
+        // Throw error
+    }
+
+    return valid
+}
 
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
     children,

@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGridContext } from '../config'
+import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 import { ColProps, UniBreakpointValues } from '../types'
 import { getClosestBreakpointValue, reduceObject } from '../utils'
-import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
     const { styles } = useStyles(stylesheet)
@@ -31,14 +31,14 @@ const stylesheet = createStyleSheet({
         const parentWidth = context.parentWidth - (padding * 2)
         const colSize = (parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT
 
-        const getSizeInPx = (size: string | number | undefined) => {
+        const getSizeInPx = (size: string | number) => {
             if (size === COLUMN_COUNT) {
                 return '100%'
             }
 
             const colCount = typeof size === 'string'
                 ? parseInt(size)
-                : size ?? 0
+                : size
             const width = colCount * colSize
             const gapBetweenColumns = (colCount - 1) * columnGap
 
@@ -52,6 +52,7 @@ const stylesheet = createStyleSheet({
                 switch (sizeValue) {
                     case 'auto':
                     case true:
+                    case undefined:
                         return 'auto'
                     default:
                         return getSizeInPx(sizeValue)

@@ -1,6 +1,6 @@
 import React from 'react'
-import { GridConfig } from '../types'
 import { DEFAULT_CONFIG } from '../consts'
+import { GridConfig } from '../types'
 
 type UnistylesGridContextType = GridConfig & {
     parentWidth: number

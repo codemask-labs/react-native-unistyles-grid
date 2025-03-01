@@ -5,8 +5,8 @@ import { Col, Container, Row, UnistylesGrid } from 'react-native-unistyles-grid'
 
 UnistylesGrid.init({
     rowGap: 10,
-    columnGap: 10,
-    containerPadding: 10
+    // columnGap: 10,
+    // containerPadding: 10,
 })
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
     return (
         <Container>
             <Row>
-                <Col xs={{ span: 4, offset: 4 }}>
+                <Col xs={{ span: 4 }}>
                     <View style={styles.item}>
                         <Text>
                             Hello
@@ -24,10 +24,10 @@ export default function App() {
                 </Col>
             </Row>
             <Row>
-            <Col>
+                <Col xs={{ order: 'last' }}>
                     <View style={styles.item}>
                         <Text>
-                            Hello
+                            Hello1
                         </Text>
                     </View>
                 </Col>

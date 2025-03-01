@@ -7,3 +7,7 @@ export const DEFAULT_CONFIG = {
 export const COLUMN_COUNT = 12 as const
 
 export const GAP_COUNT = COLUMN_COUNT - 1
+
+export const COLUMN_GAP_CSS_VARIABLE = '--unistyles-grid-column-gap'
+
+export const ROW_GAP_CSS_VARIABLE = '--unistyles-grid-row-gap'

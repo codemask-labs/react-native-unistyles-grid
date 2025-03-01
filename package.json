@@ -26,11 +26,16 @@
                 "types": "./dist/index.d.cts",
                 "default": "./dist/index.cjs"
             },
+            "react-native": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/native.cjs"
+            },
             "default": "./dist/index.cjs"
         }
     },
     "scripts": {
-        "build": "unbuild"
+        "build": "unbuild",
+        "format": "dprint fmt"
     },
     "files": [
         "dist"
