@@ -2,18 +2,16 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGridContext } from '../config'
-import { ColProps, ExtraColProps, UniBreakpointValues } from '../types'
+import { ColProps, UniBreakpointValues } from '../types'
 import { getClosestBreakpointValue, reduceObject } from '../utils'
+import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 
-type ExtendedColProps = ColProps & ExtraColProps
-
-export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = props => {
-    const { children, ...rest } = props as React.PropsWithChildren<ExtendedColProps>
+export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
     const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
 
     return (
-        <View style={styles.col(rest, context)}>
+        <View style={styles.col(props, context)}>
             {children}
         </View>
     )
@@ -21,22 +19,30 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = p
 
 const stylesheet = createStyleSheet({
     col: (
-        { isFirst, isLast, ...props }: ExtendedColProps,
+        props: ColProps,
         context: React.ContextType<typeof UnistylesGridContext>,
     ) => {
+        const padding = typeof context.containerPadding === 'number'
+            ? context.containerPadding
+            : getClosestBreakpointValue(context.containerPadding) ?? 0
+        const columnGap = typeof context.columnGap === 'number'
+            ? context.columnGap
+            : getClosestBreakpointValue(context.columnGap) ?? 0
+        const parentWidth = context.parentWidth - (padding * 2)
+        const colSize = (parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT
+
         const getSizeInPx = (size: string | number | undefined) => {
-            if (size === 12) {
+            if (size === COLUMN_COUNT) {
                 return '100%'
             }
 
-            const padding = typeof context.containerPadding === 'number'
-                ? context.containerPadding
-                : getClosestBreakpointValue(context.containerPadding) ?? 0
-            const gap = typeof context.columnGap === 'number'
-                ? context.columnGap
-                : getClosestBreakpointValue(context.columnGap) ?? 0
+            const colCount = typeof size === 'string'
+                ? parseInt(size)
+                : size ?? 0
+            const width = colCount * colSize
+            const gapBetweenColumns = (colCount - 1) * columnGap
 
-            return ((parseInt(size as string) / 12) * (context.parentWidth - (padding * 2))) - (gap / 2)
+            return width + gapBetweenColumns
         }
 
         return {
@@ -65,7 +71,11 @@ const stylesheet = createStyleSheet({
                 : 1) as unknown as UniBreakpointValues,
             marginLeft: reduceObject(props, prop => {
                 if (typeof prop === 'object' && prop.offset) {
-                    return getSizeInPx(prop.offset)
+                    const size = getSizeInPx(prop.offset)
+
+                    return typeof size === 'number'
+                        ? size + columnGap
+                        : size
                 }
 
                 return undefined

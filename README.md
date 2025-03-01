@@ -5,3 +5,4 @@
 -   [ ] Readme
 -   [ ] Separated Web implementation
 -   [ ] Unistyles 3.0 branch
+-   [ ] Warnings / Errors of invalid configuration

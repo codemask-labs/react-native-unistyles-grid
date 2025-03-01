@@ -1,4 +1,5 @@
-import { DEFAULT_CONFIG, GridConfig } from '../types'
+import { DEFAULT_CONFIG } from '../consts'
+import { GridConfig } from '../types'
 
 class UnistylesGridBuilder {
     #config = DEFAULT_CONFIG as GridConfig

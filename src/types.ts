@@ -1,4 +1,5 @@
 import { UnistylesBreakpoints } from 'react-native-unistyles'
+import { DEFAULT_CONFIG } from './consts'
 
 type SpanValue = number | 'auto' | true | (string & {})
 
@@ -38,8 +39,3 @@ export type GridConfig = {
     [K in keyof SimpleGridConfig]: WithBreakpoint<SimpleGridConfig[K]>
 }
 
-export const DEFAULT_CONFIG = {
-    rowGap: 0,
-    columnGap: 0,
-    containerPadding: 0,
-}

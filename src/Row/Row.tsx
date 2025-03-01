@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGridContext } from '../config'
-import { ColProps, ExtraColProps, GridConfig, OrderValue, RowProps, UniBreakpointValues } from '../types'
+import { ColProps, GridConfig, OrderValue, RowProps, UniBreakpointValues } from '../types'
 import { getClosestBreakpointValue, isValidCol } from '../utils'
 
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
@@ -50,14 +50,6 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
             const bOrderValue = typeof bOrder === 'number' ? bOrder : getOrderValue(bOrder)
 
             return aOrderValue - bOrderValue
-        })
-        .map((child, index, arr) => {
-            const extraProps = {
-                isFirst: index === 0,
-                isLast: index === arr.length - 1,
-            } satisfies ExtraColProps
-
-            return React.cloneElement(child, { key: index, ...extraProps } as ColProps)
         })
 
     return (

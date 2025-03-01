@@ -4,9 +4,9 @@ import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { Col, Container, Row, UnistylesGrid } from 'react-native-unistyles-grid'
 
 UnistylesGrid.init({
-    containerPadding: 10,
     rowGap: 10,
-    columnGap: 20,
+    columnGap: 10,
+    containerPadding: 10
 })
 
 export default function App() {
@@ -14,15 +14,8 @@ export default function App() {
 
     return (
         <Container>
-            <Row columnGap={100}>
-                <Col xs={8}>
-                    <View style={styles.item}>
-                        <Text>
-                            Hello12
-                        </Text>
-                    </View>
-                </Col>
-                <Col xs={4}>
+            <Row>
+                <Col xs={{ span: 4, offset: 4 }}>
                     <View style={styles.item}>
                         <Text>
                             Hello
@@ -31,6 +24,13 @@ export default function App() {
                 </Col>
             </Row>
             <Row>
+            <Col>
+                    <View style={styles.item}>
+                        <Text>
+                            Hello
+                        </Text>
+                    </View>
+                </Col>
                 <Col>
                     <View style={styles.item}>
                         <Text>
