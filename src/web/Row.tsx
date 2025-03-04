@@ -25,6 +25,7 @@ const stylesheet = createStyleSheet({
             [COLUMN_GAP_CSS_VARIABLE]: columnGap,
             display: 'flex',
             flexDirection: 'row',
+            flexWrap: 'wrap',
             rowGap: `var(${ROW_GAP_CSS_VARIABLE})`,
             columnGap: columnGap as number,
         } as CSSProperties

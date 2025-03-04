@@ -29,7 +29,7 @@ const stylesheet = createStyleSheet({
         const rowGap = config.rowGap ?? UnistylesGrid.config.rowGap
 
         return {
-            [ROW_GAP_CSS_VARIABLE]: String(rowGap),
+            [ROW_GAP_CSS_VARIABLE]: rowGap,
             flex: 1,
             padding: (config.containerPadding ?? UnistylesGrid.config.containerPadding) as number,
             rowGap: rowGap as number,

@@ -17,7 +17,7 @@ export type ColProps = Partial<Record<keyof UnistylesBreakpoints, SizeValue>>
 
 export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints, T>
 
-type WithBreakpoint<T> = T | Partial<Record<keyof UnistylesBreakpoints, T>>
+type WithBreakpoint<T> = T | Partial<UniBreakpointValues<T>>
 
 export type ExtraColProps = {
     isFirst: boolean
