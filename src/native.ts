@@ -1,1 +1,1 @@
-export * from './native'
+export * from './native/index'
