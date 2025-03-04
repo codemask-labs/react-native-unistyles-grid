@@ -18,18 +18,18 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = (
 const stylesheet = createStyleSheet({
     col: ((props: ColProps) => {
         const columnGap = `var(${COLUMN_GAP_CSS_VARIABLE})`
-        const colSize = `((100% - (${columnGap} * ${GAP_COUNT} * 1px)) / 12)`
+        const columnSize = `((100% - (${COLUMN_COUNT - 1} * ${columnGap})) / ${COLUMN_COUNT})`
 
         const getSize = (size: number | string) => {
             if (size === COLUMN_COUNT) {
                 return '100%'
             }
 
-            const colCount = typeof size === 'string'
+            const span = typeof size === 'string'
                 ? parseInt(size)
                 : size ?? 0
 
-            return `(${colCount} * ${colSize} + (${colCount - 1} * ${columnGap} * 1px))`
+            return `((${columnSize} * ${span}) + ${span - 1} * ${columnGap})`
         }
 
         const styles = {
@@ -46,11 +46,20 @@ const stylesheet = createStyleSheet({
                 }
             }) as number,
             order: reduceObject(props, prop => {
-                return typeof prop === 'object' && prop.order
-                    ? prop.order
-                    : undefined
+                if (typeof prop !== 'object') {
+                    return undefined
+                }
+
+                switch (prop.order) {
+                    case 'first':
+                        return -1
+                    case 'last':
+                        return COLUMN_COUNT
+                    default:
+                        return prop.order
+                }
             }) as number,
-            flexGrow: (Object.keys(props).length > 0
+            flex: (Object.keys(props).length > 0
                 ? reduceObject(props, prop => {
                     switch (true) {
                         case prop === true:
@@ -58,7 +67,7 @@ const stylesheet = createStyleSheet({
                         case typeof prop === 'object' && !prop.span:
                             return 1
                         default:
-                            return 0
+                            return undefined
                     }
                 })
                 : 1) as number,
@@ -68,7 +77,7 @@ const stylesheet = createStyleSheet({
 
                     return size === '100%'
                         ? size
-                        : `calc(${size} + ${columnGap} * 1px)`
+                        : `calc(${size} + ${columnGap})`
                 }
 
                 return undefined
