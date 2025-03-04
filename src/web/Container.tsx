@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ContainerProps, GridConfig } from '../types'
-import { ROW_GAP_CSS_VARIABLE } from '../consts'
+import { ROW_GAP_CSS_VARIABLE } from './vars'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
     children,

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
-import { UnistylesGrid, UnistylesGridContext } from '../config'
+import { UnistylesGrid } from '../config'
 import { ContainerProps, GridConfig } from '../types'
+import { UnistylesGridContext } from './context'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
     children,

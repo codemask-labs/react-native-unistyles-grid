@@ -1,16 +1,17 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
-import { Col } from '../Col/ColNative'
-import { UnistylesGridContext } from '../config'
-import { ColProps, GridConfig, OrderValue, RowProps, UniBreakpointValues } from '../types'
-import { getClosestBreakpointValue } from '../utils'
+import { COLUMN_COUNT } from '../consts'
+import { ColProps, GridConfig, OrderValue, RowProps } from '../types'
+import { Col } from './Col'
+import { UnistylesGridContext } from './context'
+import { getClosestBreakpointValue } from './nativeUtils'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
     const valid = React.isValidElement(element) && element.type === Col
 
     if (!valid) {
-        // Throw error
+        throw new Error('Invalid child element. Only Col components are allowed.')
     }
 
     return valid
@@ -51,7 +52,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
                     case null:
                         return 2
                     case 'last':
-                        return 3
+                        return COLUMN_COUNT
                     default:
                         return 0
                 }

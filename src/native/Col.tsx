@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
-import { UnistylesGridContext } from '../config'
 import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 import { ColProps, UniBreakpointValues } from '../types'
-import { getClosestBreakpointValue, reduceObject } from '../utils'
+import { reduceObject } from '../utils'
+import { UnistylesGridContext } from './context'
+import { getClosestBreakpointValue } from './nativeUtils'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
     const { styles } = useStyles(stylesheet)
