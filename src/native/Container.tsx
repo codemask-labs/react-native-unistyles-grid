@@ -1,33 +1,28 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
-import { ContainerProps, GridConfig } from '../types'
-import { UnistylesGridContext } from './context'
+import { ContainerProps } from '../types'
+import { createStyleSheet, updateObject } from '../utils'
+import { UnistylesGridContext, UnistylesGridContextType } from './context'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
     children,
-    containerPadding,
-    rowGap,
+    ...props
 }) => {
     const [parentWidth, setParentWidth] = useState(0)
     const { styles } = useStyles(stylesheet)
+    const context = updateObject({
+        ...UnistylesGrid.config,
+        parentWidth,
+    }, { rowGap: props.rowGap })
 
     return (
         <View
             onLayout={event => setParentWidth(event.nativeEvent.layout.width)}
-            style={styles.container({
-                rowGap,
-                containerPadding,
-            })}
+            style={styles.container(context)}
         >
-            <UnistylesGridContext.Provider
-                value={{
-                    ...UnistylesGrid.config,
-                    rowGap: rowGap ?? UnistylesGrid.config.rowGap,
-                    parentWidth,
-                }}
-            >
+            <UnistylesGridContext.Provider value={context}>
                 {children}
             </UnistylesGridContext.Provider>
         </View>
@@ -35,9 +30,10 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
 }
 
 const stylesheet = createStyleSheet({
-    container: (config: Partial<GridConfig>) => ({
+    container: (context: UnistylesGridContextType) => ({
         flex: 1,
-        padding: (config.containerPadding ?? UnistylesGrid.config.containerPadding) as number,
-        rowGap: (config.rowGap ?? UnistylesGrid.config.rowGap) as number,
+        paddingVertical: context.containerPaddingVertical,
+        paddingHorizontal: context.containerPaddingHorizontal,
+        rowGap: context.rowGap,
     }),
 })

@@ -1,12 +1,15 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
 import { Col, Container, Row, UnistylesGrid } from 'react-native-unistyles-grid'
 
-UnistylesGrid.init({
-    rowGap: 10,
-    // columnGap: 10,
-    // containerPadding: 10,
+UnistylesGrid.init((_, rt) => {
+    return {
+        rowGap: 10,
+        columnGap: 10,
+        containerPaddingVertical: Math.max(rt.insets.top, 16),
+        containerPaddingHorizontal: 16,
+    }
 })
 
 export default function App() {
@@ -15,35 +18,44 @@ export default function App() {
     return (
         <Container>
             <Row>
-                <Col xs={{ span: 4 }}>
-                    <View style={styles.item}>
-                        <Text>
-                            Hello
-                        </Text>
-                    </View>
+                <Col xs={12} md={8}>
+                    <Text style={styles.item}>
+                        xs=12 md=8
+                    </Text>
+                </Col>
+                <Col xs={6} md={4}>
+                    <Text style={styles.item}>
+                        xs=6 md=4
+                    </Text>
                 </Col>
             </Row>
             <Row>
-                <Col xs={{ order: 'last' }}>
-                    <View style={styles.item}>
-                        <Text>
-                            Hello1
-                        </Text>
-                    </View>
+                <Col xs={6} md={4}>
+                    <Text style={styles.item}>
+                        xs=6 md=4
+                    </Text>
                 </Col>
-                <Col>
-                    <View style={styles.item}>
-                        <Text>
-                            Hello
-                        </Text>
-                    </View>
+                <Col xs={6} md={4}>
+                    <Text style={styles.item}>
+                        xs=6 md=4
+                    </Text>
                 </Col>
-                <Col>
-                    <View style={styles.item}>
-                        <Text>
-                            Hello
-                        </Text>
-                    </View>
+                <Col xs={6} md={4}>
+                    <Text style={styles.item}>
+                        xs=6 md=4
+                    </Text>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={6}>
+                    <Text style={styles.item}>
+                        xs=6
+                    </Text>
+                </Col>
+                <Col xs={6}>
+                    <Text style={styles.item}>
+                        xs=6
+                    </Text>
                 </Col>
             </Row>
         </Container>

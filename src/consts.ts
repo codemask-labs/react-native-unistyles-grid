@@ -1,7 +1,8 @@
 export const DEFAULT_CONFIG = {
     rowGap: 0,
     columnGap: 0,
-    containerPadding: 0,
+    containerPaddingVertical: 0,
+    containerPaddingHorizontal: 0,
 }
 
 export const COLUMN_COUNT = 12 as const

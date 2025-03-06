@@ -17,21 +17,16 @@ export type ColProps = Partial<Record<keyof UnistylesBreakpoints, SizeValue>>
 
 export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints, T>
 
-type WithBreakpoint<T> = T | Partial<UniBreakpointValues<T>>
+export type WithBreakpoint<T> = T | Partial<UniBreakpointValues<T>>
 
 export type ExtraColProps = {
     isFirst: boolean
     isLast: boolean
 }
 
-export type RowProps = {
-    columnGap?: WithBreakpoint<number>
-}
+export type RowProps = Partial<Pick<GridConfig, 'columnGap'>>
 
-export type ContainerProps = {
-    containerPadding?: WithBreakpoint<number>
-    rowGap?: WithBreakpoint<number>
-}
+export type ContainerProps = Partial<Pick<GridConfig, 'containerPaddingVertical' | 'containerPaddingHorizontal' | 'rowGap'>>
 
 type SimpleGridConfig = typeof DEFAULT_CONFIG
 

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT, GAP_COUNT } from '../consts'
-import { ColProps, UniBreakpointValues } from '../types'
-import { reduceObject } from '../utils'
-import { UnistylesGridContext } from './context'
+import { ColProps } from '../types'
+import { createStyleSheet, reduceObject } from '../utils'
+import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getClosestBreakpointValue } from './nativeUtils'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
@@ -21,11 +21,11 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = (
 const stylesheet = createStyleSheet({
     col: (
         props: ColProps,
-        context: React.ContextType<typeof UnistylesGridContext>,
+        context: UnistylesGridContextType,
     ) => {
-        const padding = typeof context.containerPadding === 'number'
-            ? context.containerPadding
-            : getClosestBreakpointValue(context.containerPadding) ?? 0
+        const padding = typeof context.containerPaddingHorizontal === 'number'
+            ? context.containerPaddingHorizontal
+            : getClosestBreakpointValue(context.containerPaddingHorizontal) ?? 0
         const columnGap = typeof context.columnGap === 'number'
             ? context.columnGap
             : getClosestBreakpointValue(context.columnGap) ?? 0
@@ -58,8 +58,8 @@ const stylesheet = createStyleSheet({
                     default:
                         return getSizeInPx(sizeValue)
                 }
-            }) as unknown as UniBreakpointValues,
-            flexGrow: (Object.keys(props).length > 0
+            }),
+            flex: Object.keys(props).length > 0
                 ? reduceObject(props, prop => {
                     switch (true) {
                         case prop === true:
@@ -70,7 +70,7 @@ const stylesheet = createStyleSheet({
                             return 0
                     }
                 })
-                : 1) as unknown as UniBreakpointValues,
+                : 1,
             marginLeft: reduceObject(props, prop => {
                 if (typeof prop === 'object' && prop.offset) {
                     const size = getSizeInPx(prop.offset)
@@ -81,7 +81,7 @@ const stylesheet = createStyleSheet({
                 }
 
                 return undefined
-            }) as unknown as UniBreakpointValues,
+            }),
         }
     },
 })

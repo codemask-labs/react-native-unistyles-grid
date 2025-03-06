@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
-import { ColProps, GridConfig, OrderValue, RowProps } from '../types'
+import { ColProps, OrderValue, RowProps } from '../types'
+import { createStyleSheet, updateObject } from '../utils'
 import { Col } from './Col'
-import { UnistylesGridContext } from './context'
+import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getClosestBreakpointValue } from './nativeUtils'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
@@ -23,6 +24,9 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
 }) => {
     const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
+    const newContext = updateObject(context, {
+        columnGap,
+    })
 
     const extractOrderValue = (child: React.ReactElement<ColProps>) => {
         const currentBreakpointProp = getClosestBreakpointValue(child.props)
@@ -65,17 +69,8 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
         })
 
     return (
-        <View
-            style={styles.row({
-                columnGap: columnGap ?? context.columnGap,
-            })}
-        >
-            <UnistylesGridContext.Provider
-                value={{
-                    ...context,
-                    columnGap: columnGap ?? context.columnGap,
-                }}
-            >
+        <View style={styles.row(newContext)}>
+            <UnistylesGridContext.Provider value={newContext}>
                 {orderedChildren}
             </UnistylesGridContext.Provider>
         </View>
@@ -83,10 +78,10 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
 }
 
 const stylesheet = createStyleSheet({
-    row: (config: Partial<GridConfig>) => ({
+    row: (context: UnistylesGridContextType) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
-        rowGap: config.rowGap as number,
-        columnGap: config.columnGap as number,
+        rowGap: context.rowGap,
+        columnGap: context.columnGap,
     }),
 })

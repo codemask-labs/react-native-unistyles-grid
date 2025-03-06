@@ -1,9 +1,9 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 import { View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 import { ColProps } from '../types'
-import { reduceObject } from '../utils'
+import { createStyleSheet, reduceObject } from '../utils'
 import { COLUMN_GAP_CSS_VARIABLE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
@@ -33,7 +33,7 @@ const stylesheet = createStyleSheet({
             return `((${columnSize} * ${span}) + ${span - 1} * ${columnGap})`
         }
 
-        const styles = {
+        return {
             width: reduceObject(props, prop => {
                 const sizeValue = typeof prop === 'object' ? prop.span : prop
 
@@ -45,7 +45,7 @@ const stylesheet = createStyleSheet({
                     default:
                         return `calc(${getSize(sizeValue)})`
                 }
-            }) as number,
+            }),
             order: reduceObject(props, prop => {
                 if (typeof prop !== 'object') {
                     return undefined
@@ -59,8 +59,8 @@ const stylesheet = createStyleSheet({
                     default:
                         return prop.order
                 }
-            }) as number,
-            flex: (Object.keys(props).length > 0
+            }),
+            flex: Object.keys(props).length > 0
                 ? reduceObject(props, prop => {
                     switch (true) {
                         case prop === true:
@@ -71,7 +71,7 @@ const stylesheet = createStyleSheet({
                             return undefined
                     }
                 })
-                : 1) as number,
+                : 1,
             marginLeft: reduceObject(props, prop => {
                 if (typeof prop === 'object' && prop.offset) {
                     const size = getSize(prop.offset)
@@ -82,10 +82,7 @@ const stylesheet = createStyleSheet({
                 }
 
                 return undefined
-            }) as number,
-        } satisfies CSSProperties
-
-        // Cast because unistyles 2.0 doesn't support CSSProperties
-        return styles as {}
+            }),
+        }
     }),
 })

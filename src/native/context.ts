@@ -2,7 +2,7 @@ import React from 'react'
 import { DEFAULT_CONFIG } from '../consts'
 import { GridConfig } from '../types'
 
-type UnistylesGridContextType = GridConfig & {
+export type UnistylesGridContextType = GridConfig & {
     parentWidth: number
 }
 
