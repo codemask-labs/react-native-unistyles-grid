@@ -50,7 +50,7 @@
     "peerDependencies": {
         "react-native": ">=0.70.0",
         "react": ">=18.0.0",
-        "react-native-unistyles": "2.31.0"
+        "react-native-unistyles": ">=2.0.0"
     },
     "devDependencies": {
         "react-native-web": "0.19.13",
