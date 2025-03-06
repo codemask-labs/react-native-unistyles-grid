@@ -14,6 +14,16 @@
             "dist/*.map*"
         ]
     },
+    "keywords": [
+        "react-native",
+        "react-native-web",
+        "layout",
+        "unistyles",
+        "layout",
+        "ui",
+        "grid",
+        "typescript"
+    ],
     "main": "./dist/index.cjs",
     "exports": {
         ".": {
