@@ -11,11 +11,12 @@ type SizeValue =
         span: SpanValue
         order: OrderValue
         offset: number
+        hide: true
     }>
 
-export type ColProps = Partial<Record<keyof UnistylesBreakpoints, SizeValue>>
+export type ColProps = Partial<UniBreakpointValues<SizeValue>>
 
-export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints, T>
+export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints | symbol, T>
 
 export type WithBreakpoint<T> = T | Partial<UniBreakpointValues<T>>
 

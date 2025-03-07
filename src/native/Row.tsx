@@ -3,10 +3,9 @@ import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, OrderValue, RowProps } from '../types'
-import { createStyleSheet, updateObject } from '../utils'
+import { createStyleSheet, getClosestBreakpointValue, updateObject } from '../utils'
 import { Col } from './Col'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
-import { getClosestBreakpointValue } from './nativeUtils'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
     const valid = React.isValidElement(element) && element.type === Col
