@@ -18,9 +18,10 @@ export const getClosestBreakpointValue = <T>(values: Partial<Record<keyof Unisty
         .sort(([a], [b]) => {
             return breakpoints[b] - breakpoints[a]
         })
+
     // Get breakpoint value with highest priority
     const [_, currentBreakpointValue] = breakpointValues.find(
-        ([key]) => breakpoints[key] <= breakpoints[UnistylesRuntime.breakpoint],
+        ([key]) => UnistylesRuntime.breakpoint && (breakpoints[key] <= breakpoints[UnistylesRuntime.breakpoint]),
     ) ?? []
 
     return currentBreakpointValue

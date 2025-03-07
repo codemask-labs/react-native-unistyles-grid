@@ -1,17 +1,14 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { RowProps } from '../types'
-import { createStyleSheet } from '../utils'
 import { COLUMN_GAP_CSS_VARIABLE, ROW_GAP_CSS_VARIABLE } from './vars'
 
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
     children,
     ...props
 }) => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <View style={styles.row(props)}>
             {children}
@@ -19,7 +16,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
     )
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
     row: (props: RowProps) => {
         const columnGap = props.columnGap ?? UnistylesGrid.config.columnGap
 

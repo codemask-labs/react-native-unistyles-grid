@@ -7,6 +7,9 @@ module.exports = function(api) {
     return {
         presets: ['babel-preset-expo'],
         plugins: [
+            ['react-native-unistyles/plugin', {
+                autoProcessPaths: 'react-native-unistyles-grid/src',
+            }],
             [
                 'module-resolver',
                 {

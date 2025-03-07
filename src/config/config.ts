@@ -1,9 +1,10 @@
-import { UnistylesRuntime, UnistylesThemes } from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime, UnistylesThemes } from 'react-native-unistyles'
 import { DEFAULT_CONFIG } from '../consts'
 import { GridConfig } from '../types'
 
 type UnistylesTheme = UnistylesThemes[keyof UnistylesThemes]
-type UnistylesMiniRuntime = typeof UnistylesRuntime.miniRuntime
+type FunctionOnly<T> = T extends Function ? T : never
+type UnistylesMiniRuntime = Parameters<FunctionOnly<Parameters<typeof StyleSheet.create>[0]>>[1]
 
 type Config = Partial<GridConfig> | ((theme: UnistylesTheme, rt: UnistylesMiniRuntime) => Partial<GridConfig>)
 

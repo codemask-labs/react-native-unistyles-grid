@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { Col, Container, Row, UnistylesGrid } from 'react-native-unistyles-grid'
 
 UnistylesGrid.init((_, rt) => {
@@ -13,8 +13,6 @@ UnistylesGrid.init((_, rt) => {
 })
 
 export default function App() {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <Container>
             <Row>
@@ -62,7 +60,7 @@ export default function App() {
     )
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
     item: {
         borderColor: 'black',
         borderWidth: 1,
