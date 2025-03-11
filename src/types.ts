@@ -32,6 +32,10 @@ export type ExtraColProps = {
 
 export type RowProps = Partial<Pick<GridConfig, 'columnGap'>>
 
+export type RowStyles = {
+    style?: ViewStyle
+}
+
 export type ContainerProps = Partial<Pick<GridConfig, 'containerPaddingVertical' | 'containerPaddingHorizontal' | 'rowGap'>>
 
 type SimpleGridConfig = Omit<typeof DEFAULT_CONFIG, 'debug'>

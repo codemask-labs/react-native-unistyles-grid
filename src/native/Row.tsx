@@ -3,24 +3,23 @@ import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { COLUMN_COUNT } from '../consts'
-import { ColProps, OrderValue, RowProps } from '../types'
+import { ColProps, OrderValue, RowProps, RowStyles } from '../types'
 import { createStyleSheet, getClosestBreakpointValue, updateObject } from '../utils'
 import { Col } from './Col'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { Debug } from './Debug'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
-    const valid = React.isValidElement(element) && element.type === Col
-
-    if (!valid) {
-        throw new Error('Invalid child element. Only Col components are allowed.')
+    if (React.isValidElement(element) && element.type === Col) {
+        return true
     }
 
-    return valid
+    throw new Error('Invalid child element. Only Col components are allowed.')
 }
 
-export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = ({
+export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & RowStyles>> = ({
     children,
+    style,
     columnGap,
 }) => {
     const { styles } = useStyles(stylesheet)
@@ -70,7 +69,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps>> = (
         })
 
     return (
-        <View style={styles.row(newContext)}>
+        <View style={[style, styles.row(newContext)]}>
             <UnistylesGridContext.Provider value={newContext}>
                 {UnistylesGrid.config.debug && <Debug />}
                 {orderedChildren}
