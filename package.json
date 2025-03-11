@@ -24,9 +24,13 @@
         "grid",
         "typescript"
     ],
+    "react-native": "./dist/native.cjs",
     "main": "./dist/index.cjs",
     "exports": {
         ".": {
+            "react-native": {
+                "default": "./dist/native.cjs"
+            },
             "module": "./dist/index.mjs",
             "import": {
                 "types": "./dist/index.d.mts",
@@ -36,7 +40,6 @@
                 "types": "./dist/index.d.cts",
                 "default": "./dist/index.cjs"
             },
-            "react-native": "./dist/native.cjs",
             "default": "./dist/index.cjs"
         }
     },
