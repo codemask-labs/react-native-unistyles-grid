@@ -3,6 +3,7 @@ export const DEFAULT_CONFIG = {
     columnGap: 0,
     containerPaddingVertical: 0,
     containerPaddingHorizontal: 0,
+    debug: false,
 }
 
 export const COLUMN_COUNT = 12 as const

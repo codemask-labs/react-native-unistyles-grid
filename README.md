@@ -46,6 +46,7 @@ UnistylesGrid.init((theme) => ({
 | paddingHorizontal | number \| Record<UnistylesBreakpoint, number> | 0 | Horizontal padding of the container |
 | rowGap | number \| Record<UnistylesBreakpoint, number> | 0 | Gap between rows |
 | columnGap | number \| Record<UnistylesBreakpoint, number> | 0 | Gap between columns |
+| debug | boolean | false | Enable debug mode |
 
 ### Components
 

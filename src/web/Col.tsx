@@ -1,10 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
-import { COLUMN_COUNT, GAP_COUNT } from '../consts'
+import { COLUMN_COUNT } from '../consts'
 import { ColProps } from '../types'
 import { createStyleSheet, getClosestBreakpointValue, reduceObject } from '../utils'
-import { COLUMN_GAP_CSS_VARIABLE } from './vars'
+import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = ({ children, ...props }) => {
     const { styles } = useStyles(stylesheet)
@@ -24,9 +24,6 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps>> = (
 
 const stylesheet = createStyleSheet({
     col: ((props: ColProps) => {
-        const columnGap = `var(${COLUMN_GAP_CSS_VARIABLE})`
-        const columnSize = `((100% - (${GAP_COUNT} * ${columnGap})) / ${COLUMN_COUNT})`
-
         const getSize = (size: number | string) => {
             if (size === COLUMN_COUNT) {
                 return '100%'
@@ -36,7 +33,7 @@ const stylesheet = createStyleSheet({
                 ? parseInt(size)
                 : size ?? 0
 
-            return `((${columnSize} * ${span}) + ${span - 1} * ${columnGap})`
+            return `((${COLUMN_SIZE_CSS_VALUE} * ${span}) + ${span - 1} * ${COLUMN_GAP_CSS_VALUE})`
         }
 
         return {
@@ -84,7 +81,7 @@ const stylesheet = createStyleSheet({
 
                     return size === '100%'
                         ? size
-                        : `calc(${size} + ${columnGap})`
+                        : `calc(${size} + ${COLUMN_GAP_CSS_VALUE})`
                 }
 
                 return undefined

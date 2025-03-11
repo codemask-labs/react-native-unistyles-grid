@@ -4,7 +4,7 @@ import { useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ContainerProps } from '../types'
 import { createStyleSheet } from '../utils'
-import { ROW_GAP_CSS_VARIABLE } from './vars'
+import { ROW_GAP_CSS_NAME } from './vars'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
     children,
@@ -24,7 +24,7 @@ const stylesheet = createStyleSheet({
         const rowGap = props.rowGap ?? UnistylesGrid.config.rowGap
 
         return {
-            [ROW_GAP_CSS_VARIABLE]: rowGap,
+            [ROW_GAP_CSS_NAME]: rowGap,
             flex: 1,
             paddingVertical: props.containerPaddingVertical ?? UnistylesGrid.config.containerPaddingVertical,
             paddingHorizontal: props.containerPaddingHorizontal ?? UnistylesGrid.config.containerPaddingHorizontal,

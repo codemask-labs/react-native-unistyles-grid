@@ -29,8 +29,12 @@ export type RowProps = Partial<Pick<GridConfig, 'columnGap'>>
 
 export type ContainerProps = Partial<Pick<GridConfig, 'containerPaddingVertical' | 'containerPaddingHorizontal' | 'rowGap'>>
 
-type SimpleGridConfig = typeof DEFAULT_CONFIG
+type SimpleGridConfig = Omit<typeof DEFAULT_CONFIG, 'debug'>
 
-export type GridConfig = {
-    [K in keyof SimpleGridConfig]: WithBreakpoint<SimpleGridConfig[K]>
-}
+export type GridConfig =
+    & {
+        [K in keyof SimpleGridConfig]: WithBreakpoint<SimpleGridConfig[K]>
+    }
+    & {
+        debug?: boolean
+    }
