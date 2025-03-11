@@ -1,3 +1,4 @@
+import { ViewStyle } from 'react-native'
 import { UnistylesBreakpoints } from 'react-native-unistyles'
 import { DEFAULT_CONFIG } from './consts'
 
@@ -15,6 +16,10 @@ type SizeValue =
     }>
 
 export type ColProps = Partial<UniBreakpointValues<SizeValue>>
+
+export type ColStyles = {
+    style?: ViewStyle
+}
 
 export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints | symbol, T>
 
