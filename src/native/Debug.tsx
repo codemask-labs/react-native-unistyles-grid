@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
-import { COLUMN_COUNT, GAP_COUNT } from '../consts'
-import { createStyleSheet, getClosestBreakpointValue } from '../utils'
+import { COLUMN_COUNT } from '../consts'
+import { createStyleSheet } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
+import { getContextValues } from './nativeUtils'
 
 export const Debug = () => {
     const { styles } = useStyles(stylesheet)
@@ -34,17 +35,10 @@ const stylesheet = createStyleSheet({
         zIndex: 99999,
     }),
     debugItem: (context: UnistylesGridContextType) => {
-        const padding = typeof context.containerPaddingHorizontal === 'number'
-            ? context.containerPaddingHorizontal
-            : getClosestBreakpointValue(context.containerPaddingHorizontal) ?? 0
-        const columnGap = typeof context.columnGap === 'number'
-            ? context.columnGap
-            : getClosestBreakpointValue(context.columnGap) ?? 0
-        const parentWidth = context.parentWidth - (padding * 2)
-        const columnSize = (parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT
+        const { colSize } = getContextValues(context)
 
         return {
-            width: columnSize,
+            width: colSize,
             height: '100%',
             backgroundColor: 'rgba(228, 39, 171, 0.5)',
         }
