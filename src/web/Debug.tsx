@@ -31,6 +31,7 @@ const stylesheet = createStyleSheet({
         height: '100%',
         columnGap: COLUMN_GAP_CSS_VALUE,
         zIndex: 99999,
+        pointerEvents: 'none',
     },
     debugItem: {
         width: COLUMN_SIZE_CSS_VALUE,

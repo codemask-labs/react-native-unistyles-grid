@@ -33,6 +33,7 @@ const stylesheet = createStyleSheet({
         height: '100%',
         columnGap: context.columnGap,
         zIndex: 99999,
+        pointerEvents: 'none',
     }),
     debugItem: (context: UnistylesGridContextType) => {
         const { colSize } = getContextValues(context)
