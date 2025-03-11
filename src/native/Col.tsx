@@ -5,6 +5,7 @@ import { COLUMN_COUNT, GAP_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
 import { createStyleSheet, getClosestBreakpointValue, reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
+import { getContextValues } from './nativeUtils'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & ColStyles>> = ({
     children,
@@ -32,14 +33,7 @@ const stylesheet = createStyleSheet({
         props: ColProps,
         context: UnistylesGridContextType,
     ) => {
-        const padding = typeof context.containerPaddingHorizontal === 'number'
-            ? context.containerPaddingHorizontal
-            : getClosestBreakpointValue(context.containerPaddingHorizontal) ?? 0
-        const columnGap = typeof context.columnGap === 'number'
-            ? context.columnGap
-            : getClosestBreakpointValue(context.columnGap) ?? 0
-        const parentWidth = context.parentWidth - (padding * 2)
-        const colSize = (parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT
+        const { colSize, columnGap } = getContextValues(context)
 
         const getSizeInPx = (size: string | number) => {
             if (size === COLUMN_COUNT) {

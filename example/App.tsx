@@ -6,9 +6,13 @@ import { Col, Container, Row, UnistylesGrid } from 'react-native-unistyles-grid'
 UnistylesGrid.init((_, rt) => {
     return {
         rowGap: 10,
-        columnGap: 10,
+        columnGap: {
+            xs: 10,
+            md: 20,
+        },
         containerPaddingVertical: Math.max(rt.insets.top, 16),
         containerPaddingHorizontal: 16,
+        debug: true,
     }
 })
 
