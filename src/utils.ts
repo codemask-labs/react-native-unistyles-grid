@@ -2,7 +2,7 @@ import { CSSProperties } from 'react'
 import { ViewStyle } from 'react-native'
 import { createStyleSheet as createStyleSheetBase } from 'react-native-unistyles'
 import { UnistylesBreakpoints, UnistylesRuntime } from 'react-native-unistyles'
-import { UniBreakpointValues, WithBreakpoint } from './types'
+import { ColProps, UniBreakpointValues, WithBreakpoint } from './types'
 
 export const reduceObject = <TObj extends Record<string, any>, TReducer>(
     obj: TObj,
@@ -41,6 +41,16 @@ export const getClosestBreakpointValue = <T>(values: Partial<Record<keyof Unisty
     ) ?? []
 
     return currentBreakpointValue
+}
+
+export const getIsHidden = (props: ColProps) => {
+    const breakpointProps = getClosestBreakpointValue(props)
+
+    if (typeof breakpointProps === 'object') {
+        return breakpointProps.hide ?? breakpointProps.span === 0
+    }
+
+    return breakpointProps === 0
 }
 
 type AllStyles = ViewStyle | CSSProperties
