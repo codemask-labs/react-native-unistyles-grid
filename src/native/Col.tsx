@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
-import { COLUMN_COUNT, GAP_COUNT } from '../consts'
+import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, getClosestBreakpointValue, reduceObject } from '../utils'
+import { createStyleSheet, getIsHidden, reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
@@ -14,8 +14,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
 }) => {
     const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
-    const breakpointProps = getClosestBreakpointValue(props)
-    const isHidden = typeof breakpointProps === 'object' && breakpointProps.hide
+    const isHidden = getIsHidden(props)
 
     if (isHidden) {
         return null
