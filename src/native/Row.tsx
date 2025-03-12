@@ -20,13 +20,11 @@ const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & RowStyles>> = ({
     children,
     style,
-    columnGap,
+    ...props
 }) => {
     const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
-    const newContext = updateObject(context, {
-        columnGap,
-    })
+    const newContext = updateObject(context, props)
 
     const extractOrderValue = (child: React.ReactElement<ColProps>) => {
         const currentBreakpointProp = getClosestBreakpointValue(child.props)

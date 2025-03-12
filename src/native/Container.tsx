@@ -15,7 +15,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     const context = updateObject({
         ...UnistylesGrid.config,
         parentWidth,
-    }, { rowGap: props.rowGap })
+    }, props)
 
     return (
         <View
