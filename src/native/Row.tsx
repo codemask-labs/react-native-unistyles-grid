@@ -51,8 +51,6 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
                 switch (order) {
                     case 'first':
                         return 1
-                    case null:
-                        return 2
                     case 'last':
                         return COLUMN_COUNT
                     default:
