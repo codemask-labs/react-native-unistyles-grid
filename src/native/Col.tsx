@@ -16,7 +16,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     const context = useContext(UnistylesGridContext)
     const isHidden = getIsHidden(props)
 
-    if (isHidden) {
+    if (isHidden || context.parentWidth === 0) {
         return null
     }
 

@@ -10,12 +10,12 @@ export const getContextValues = (context: UnistylesGridContextType) => {
         ? context.columnGap
         : getClosestBreakpointValue(context.columnGap) ?? 0
     const parentWidth = context.parentWidth - (padding * 2)
-    const colSize = (parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT
+    const colSize = Math.floor((parentWidth - (columnGap * GAP_COUNT)) / COLUMN_COUNT)
 
     return {
         padding,
         columnGap,
         parentWidth,
-        colSize,
+        colSize: Math.max(colSize, 0),
     }
 }

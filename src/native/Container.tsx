@@ -31,7 +31,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
 
 const stylesheet = createStyleSheet({
     container: (context: UnistylesGridContextType) => ({
-        flex: 1,
+        flexGrow: 1,
         paddingVertical: context.containerPaddingVertical,
         paddingHorizontal: context.containerPaddingHorizontal,
         rowGap: context.rowGap,
