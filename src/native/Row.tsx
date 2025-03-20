@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
-import { COLUMN_COUNT } from '../consts'
 import { ColProps, OrderValue, RowProps, RowStyles } from '../types'
 import { createStyleSheet, getClosestBreakpointValue, updateObject } from '../utils'
 import { Col } from './Col'
@@ -16,6 +15,8 @@ const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
 
     throw new Error('Invalid child element. Only Col components are allowed.')
 }
+
+type NotNumber<T> = T extends number ? never : T
 
 export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & RowStyles>> = ({
     children,
@@ -47,12 +48,12 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
                 return 0
             }
 
-            const getOrderValue = (order: OrderValue | null) => {
+            const getOrderValue = (order: NotNumber<OrderValue> | null) => {
                 switch (order) {
                     case 'first':
-                        return 1
+                        return -Infinity
                     case 'last':
-                        return COLUMN_COUNT
+                        return Infinity
                     default:
                         return 0
                 }
@@ -61,7 +62,11 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
             const aOrderValue = typeof aOrder === 'number' ? aOrder : getOrderValue(aOrder)
             const bOrderValue = typeof bOrder === 'number' ? bOrder : getOrderValue(bOrder)
 
-            return aOrderValue - bOrderValue
+            if (aOrderValue === bOrderValue) {
+                return 0
+            }
+
+            return aOrderValue < bOrderValue ? -1 : 1
         })
 
     return (
