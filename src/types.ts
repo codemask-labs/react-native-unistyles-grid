@@ -18,7 +18,7 @@ type SizeValue =
 export type ColProps = Partial<UniBreakpointValues<SizeValue>>
 
 export type ColStyles = {
-    style?: Pick<ViewStyle, 'zIndex'>
+    style?: Pick<ViewStyle, 'justifyContent' | 'height' | 'maxHeight' | 'minHeight' | 'zIndex' | 'alignItems' | 'alignContent'>
 }
 
 export type UniBreakpointValues<T = number> = Record<keyof UnistylesBreakpoints | symbol, T>
@@ -33,7 +33,7 @@ export type ExtraColProps = {
 export type RowProps = Partial<Pick<GridConfig, 'columnGap'>>
 
 export type RowStyles = {
-    style?: Pick<ViewStyle, 'alignContent' | 'flexGrow' | 'zIndex'>
+    style?: Pick<ViewStyle, 'flexGrow' | 'height' | 'maxHeight' | 'minHeight' | 'zIndex' | 'alignItems' | 'alignContent'>
 }
 
 export type ContainerProps = Partial<Pick<GridConfig, 'containerPaddingVertical' | 'containerPaddingHorizontal' | 'rowGap'>>

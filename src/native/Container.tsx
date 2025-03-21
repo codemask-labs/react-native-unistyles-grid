@@ -19,7 +19,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
 
     return (
         <View
-            onLayout={event => setParentWidth(event.nativeEvent.layout.width)}
+            onLayout={event => setParentWidth(Math.floor(event.nativeEvent.layout.width))}
             style={styles.container(context)}
         >
             <UnistylesGridContext.Provider value={context}>
