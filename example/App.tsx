@@ -10,8 +10,11 @@ UnistylesGrid.init((_, rt) => {
             xs: 10,
             md: 20,
         },
-        containerPaddingVertical: Math.max(rt.insets.top, 16),
-        containerPaddingHorizontal: 16,
+        containerStyles: {
+            paddingTop: rt.insets.top,
+            paddingBottom: rt.insets.bottom,
+            paddingHorizontal: 16,
+        },
         debug: true,
     }
 })

@@ -36,9 +36,19 @@ export type RowStyles = {
     style?: Pick<ViewStyle, 'flexGrow' | 'height' | 'maxHeight' | 'minHeight' | 'zIndex' | 'alignItems' | 'alignContent'>
 }
 
-export type ContainerProps = Partial<Pick<GridConfig, 'containerPaddingVertical' | 'containerPaddingHorizontal' | 'rowGap'>>
+export type ContainerProps = Partial<Pick<GridConfig, 'rowGap'>> & {
+    style?: ContainerStyles
+}
 
-type SimpleGridConfig = Omit<typeof DEFAULT_CONFIG, 'debug'>
+type SimpleGridConfig = Omit<typeof DEFAULT_CONFIG, 'debug' | 'containerStyles'>
+
+type ContainerStylesBasic = Pick<
+    ViewStyle,
+    'paddingVertical' | 'paddingHorizontal' | 'paddingTop' | 'paddingRight' | 'paddingBottom' | 'paddingLeft'
+>
+type ContainerStyles = {
+    [S in keyof ContainerStylesBasic]: WithBreakpoint<ContainerStylesBasic[S]>
+}
 
 export type GridConfig =
     & {
@@ -46,4 +56,5 @@ export type GridConfig =
     }
     & {
         debug?: boolean
+        containerStyles?: ContainerStyles
     }

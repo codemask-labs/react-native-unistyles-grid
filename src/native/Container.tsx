@@ -20,7 +20,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     return (
         <View
             onLayout={event => setParentWidth(Math.floor(event.nativeEvent.layout.width))}
-            style={styles.container(context)}
+            style={[styles.container(context), props.style ?? UnistylesGrid.config.containerStyles]}
         >
             <UnistylesGridContext.Provider value={context}>
                 {children}
@@ -32,8 +32,6 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
 const stylesheet = createStyleSheet({
     container: (context: UnistylesGridContextType) => ({
         flexGrow: 1,
-        paddingVertical: context.containerPaddingVertical,
-        paddingHorizontal: context.containerPaddingHorizontal,
         rowGap: context.rowGap,
     }),
 })

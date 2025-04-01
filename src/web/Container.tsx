@@ -13,7 +13,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     const { styles } = useStyles(stylesheet)
 
     return (
-        <View style={styles.container(props)}>
+        <View style={[styles.container(props), props.style ?? UnistylesGrid.config.containerStyles]}>
             {children}
         </View>
     )
@@ -26,8 +26,6 @@ const stylesheet = createStyleSheet({
         return {
             [ROW_GAP_CSS_NAME]: rowGap,
             flex: 1,
-            paddingVertical: props.containerPaddingVertical ?? UnistylesGrid.config.containerPaddingVertical,
-            paddingHorizontal: props.containerPaddingHorizontal ?? UnistylesGrid.config.containerPaddingHorizontal,
             rowGap,
         }
     },

@@ -1,8 +1,10 @@
 export const DEFAULT_CONFIG = {
     rowGap: 0,
     columnGap: 0,
-    containerPaddingVertical: 0,
-    containerPaddingHorizontal: 0,
+    containerStyles: {
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+    },
     debug: false,
 }
 
