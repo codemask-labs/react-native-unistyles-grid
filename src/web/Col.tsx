@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, getIsHidden, reduceObject } from '../utils'
+import { createStyleSheet, reduceObject } from '../utils'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & ColStyles>> = ({
@@ -12,11 +12,6 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     ...props
 }) => {
     const { styles } = useStyles(stylesheet)
-    const isHidden = getIsHidden(props)
-
-    if (isHidden) {
-        return null
-    }
 
     return (
         <View style={[style, styles.col(props)]}>

@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, getIsHidden, reduceObject } from '../utils'
+import { createStyleSheet, reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
@@ -14,11 +14,6 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
 }) => {
     const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
-    const isHidden = getIsHidden(props)
-
-    if (isHidden || context.parentWidth === 0) {
-        return null
-    }
 
     return (
         <View style={[style, styles.col(props, context)]}>
