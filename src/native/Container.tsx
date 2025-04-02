@@ -15,6 +15,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     const context = updateObject({
         ...UnistylesGrid.config,
         parentWidth,
+        containerStyles: props.style,
     }, props)
 
     return (
