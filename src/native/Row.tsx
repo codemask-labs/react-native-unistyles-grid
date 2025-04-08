@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
+import { UniComponents } from '../components'
 import { UnistylesGrid } from '../config'
 import { ColProps, OrderValue, RowProps, RowStyles } from '../types'
 import { getClosestBreakpointValue, getIsHidden, updateObject } from '../utils'
@@ -79,12 +79,12 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     }
 
     return (
-        <View style={[style, styles.row(newContext)]}>
+        <UniComponents.View style={[style, styles.row(newContext)]}>
             <UnistylesGridContext.Provider value={newContext}>
                 {UnistylesGrid.config.debug && <Debug />}
                 {orderedChildren}
             </UnistylesGridContext.Provider>
-        </View>
+        </UniComponents.View>
     )
 }
 

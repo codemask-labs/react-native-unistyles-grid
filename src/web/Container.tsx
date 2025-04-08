@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native-unistyles'
+import { UniComponents } from '../components'
 import { UnistylesGrid } from '../config'
 import { ContainerProps } from '../types'
-import { View } from '../View'
 import { ROW_GAP_CSS_NAME } from './vars'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
@@ -10,9 +10,9 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     ...props
 }) => {
     return (
-        <View style={[styles.container(props), props.style ?? UnistylesGrid.config.containerStyles]}>
+        <UniComponents.View style={[styles.container(props), props.style ?? UnistylesGrid.config.containerStyles]}>
             {children}
-        </View>
+        </UniComponents.View>
     )
 }
 
