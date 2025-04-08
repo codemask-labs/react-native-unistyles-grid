@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ContainerProps } from '../types'
-import { createStyleSheet, updateObject } from '../utils'
+import { updateObject } from '../utils'
+import { View } from '../View'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 
 export const Container: React.FunctionComponent<React.PropsWithChildren<ContainerProps>> = ({
@@ -11,7 +11,6 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     ...props
 }) => {
     const [parentWidth, setParentWidth] = useState(0)
-    const { styles } = useStyles(stylesheet)
     const context = updateObject({
         ...UnistylesGrid.config,
         parentWidth,
@@ -30,9 +29,9 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     )
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
     container: (context: UnistylesGridContextType) => ({
         flexGrow: 1,
         rowGap: context.rowGap,
     }),
-})
+}, '2')

@@ -1,8 +1,5 @@
-import { CSSProperties } from 'react'
-import { ViewStyle } from 'react-native'
-import { createStyleSheet as createStyleSheetBase } from 'react-native-unistyles'
 import { UnistylesBreakpoints, UnistylesRuntime } from 'react-native-unistyles'
-import { ColProps, UniBreakpointValues, WithBreakpoint } from './types'
+import { ColProps, UniBreakpointValues } from './types'
 
 export const reduceObject = <TObj extends Record<string, any>, TReducer>(
     obj: TObj,
@@ -37,7 +34,7 @@ export const getClosestBreakpointValue = <T>(values: Partial<Record<keyof Unisty
         })
     // Get breakpoint value with highest priority
     const [_, currentBreakpointValue] = breakpointValues.find(
-        ([key]) => breakpoints[key] <= breakpoints[UnistylesRuntime.breakpoint],
+        ([key]) => UnistylesRuntime.breakpoint && breakpoints[key] <= breakpoints[UnistylesRuntime.breakpoint],
     ) ?? []
 
     return currentBreakpointValue
@@ -52,22 +49,3 @@ export const getIsHidden = (props: ColProps) => {
 
     return breakpointProps === 0
 }
-
-type AllStyles = ViewStyle | CSSProperties
-
-type StyleValues = {
-    [propName in keyof AllStyles]?: WithBreakpoint<AllStyles[propName]>
-}
-
-type GridStyleSheet = Record<string, StyleValues | ((...args: any) => StyleValues)>
-
-type CreateStyleSheet = {
-    <S extends GridStyleSheet>(styles: S): {
-        [K in keyof S]: S[K] extends (...args: infer A) => any ? (...args: A) => any : any
-    }
-}
-
-/**
- * Used to reduce type casting
- */
-export const createStyleSheet = createStyleSheetBase as unknown as CreateStyleSheet

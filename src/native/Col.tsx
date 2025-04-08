@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, reduceObject } from '../utils'
+import { reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
@@ -12,7 +12,6 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     style,
     ...props
 }) => {
-    const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
 
     return (
@@ -22,7 +21,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     )
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
     col: (
         props: ColProps,
         context: UnistylesGridContextType,
@@ -81,4 +80,4 @@ const stylesheet = createStyleSheet({
             }),
         }
     },
-})
+}, '1')

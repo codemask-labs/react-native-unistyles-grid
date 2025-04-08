@@ -1,13 +1,11 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
-import { createStyleSheet } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
 export const Debug = () => {
-    const { styles } = useStyles(stylesheet)
     const context = useContext(UnistylesGridContext)
 
     return (
@@ -22,7 +20,7 @@ export const Debug = () => {
     )
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
     debugContainer: (context: UnistylesGridContextType) => ({
         display: 'flex',
         flexDirection: 'row',
@@ -44,4 +42,4 @@ const stylesheet = createStyleSheet({
             backgroundColor: 'rgba(228, 39, 171, 0.5)',
         }
     },
-})
+}, '3')

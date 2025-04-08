@@ -2,8 +2,12 @@ import { UnistylesRuntime, UnistylesThemes } from 'react-native-unistyles'
 import { DEFAULT_CONFIG } from '../consts'
 import { GridConfig } from '../types'
 
+type RemoveFunctionPropertyNames<T> = {
+    [K in keyof T as T[K] extends (...args: any) => any ? never : K]: T[K]
+}
+
 type UnistylesTheme = UnistylesThemes[keyof UnistylesThemes]
-type UnistylesMiniRuntime = typeof UnistylesRuntime.miniRuntime
+type UnistylesMiniRuntime = Omit<RemoveFunctionPropertyNames<typeof UnistylesRuntime>, 'name' | '__type'>
 
 type Config = Partial<GridConfig> | ((theme: UnistylesTheme, rt: UnistylesMiniRuntime) => Partial<GridConfig>)
 
