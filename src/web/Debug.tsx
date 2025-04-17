@@ -1,19 +1,19 @@
 import React from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { COLUMN_COUNT } from '../consts'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Debug = () => {
     return (
-        <UniComponents.View style={styles.debugContainer}>
+        <View style={styles.debugContainer}>
             {Array.from({ length: COLUMN_COUNT }, (_, index) => (
-                <UniComponents.View
+                <View
                     key={index}
                     style={styles.debugItem}
                 />
             ))}
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: 'rgba(228, 39, 171, 0.5)',
     },
-}, '3')
+})

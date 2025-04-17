@@ -1,6 +1,6 @@
 import React from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { UnistylesGrid } from '../config'
 import { ColProps, RowProps, RowStyles } from '../types'
 import { getIsHidden } from '../utils'
@@ -35,10 +35,10 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     }
 
     return (
-        <UniComponents.View style={[style, styles.row(props)]}>
+        <View style={[style, styles.row(props)]}>
             {UnistylesGrid.config.debug && <Debug />}
             {filteredChildren}
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
             columnGap,
         }
     },
-}, '4')
+})

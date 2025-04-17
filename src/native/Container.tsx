@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { UnistylesGrid } from '../config'
 import { ContainerProps } from '../types'
 import { updateObject } from '../utils'
@@ -18,14 +18,14 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     }, props)
 
     return (
-        <UniComponents.View
+        <View
             onLayout={event => setParentWidth(Math.floor(event.nativeEvent.layout.width))}
             style={[styles.container(context), props.style ?? UnistylesGrid.config.containerStyles]}
         >
             <UnistylesGridContext.Provider value={context}>
                 {children}
             </UnistylesGridContext.Provider>
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         rowGap: context.rowGap,
     }),
-}, '2')
+})

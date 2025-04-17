@@ -1,6 +1,6 @@
 import React from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
 import { reduceObject } from '../utils'
@@ -12,9 +12,9 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     ...props
 }) => {
     return (
-        <UniComponents.View style={[style, styles.col(props)]}>
+        <View style={[style, styles.col(props)]}>
             {children}
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
             }),
         }
     }),
-}, '1')
+})

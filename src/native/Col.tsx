@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
 import { reduceObject } from '../utils'
@@ -15,9 +15,9 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     const context = useContext(UnistylesGridContext)
 
     return (
-        <UniComponents.View style={[style, styles.col(props, context)]}>
+        <View style={[style, styles.col(props, context)]}>
             {children}
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
             }),
         }
     },
-}, '1')
+})

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
-import { UniComponents } from '../components'
 import { COLUMN_COUNT } from '../consts'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
@@ -9,14 +9,14 @@ export const Debug = () => {
     const context = useContext(UnistylesGridContext)
 
     return (
-        <UniComponents.View style={styles.debugContainer(context)}>
+        <View style={styles.debugContainer(context)}>
             {Array.from({ length: COLUMN_COUNT }, (_, index) => (
-                <UniComponents.View
+                <View
                     key={index}
                     style={styles.debugItem(context)}
                 />
             ))}
-        </UniComponents.View>
+        </View>
     )
 }
 
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
             backgroundColor: 'rgba(228, 39, 171, 0.5)',
         }
     },
-}, '3')
+})
