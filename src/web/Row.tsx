@@ -8,7 +8,7 @@ import { Col } from './Col'
 import { Debug } from './Debug'
 import { COLUMN_GAP_CSS_NAME, ROW_GAP_CSS_VALUE } from './vars'
 
-const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
+const isValidCol = (element: unknown): element is React.ReactElement<ColProps> => {
     if (React.isValidElement(element) && element.type === Col) {
         return true
     }

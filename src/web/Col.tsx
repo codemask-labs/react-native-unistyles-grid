@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
             }
 
             const span = typeof size === 'string'
-                ? parseInt(size)
-                : size ?? 0
+                ? parseInt(size, 10)
+                : size
 
             return `((${COLUMN_SIZE_CSS_VALUE} * ${span}) + ${span - 1} * ${COLUMN_GAP_CSS_VALUE})`
         }
