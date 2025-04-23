@@ -10,7 +10,7 @@ export const Container: React.FunctionComponent<React.PropsWithChildren<Containe
     children,
     ...props
 }) => {
-    const [parentWidth, setParentWidth] = useState(0)
+    const [parentWidth, setParentWidth] = useState(UnistylesGrid.mock.parentWidth)
     const { styles } = useStyles(stylesheet)
     const context = updateObject({
         ...UnistylesGrid.config,

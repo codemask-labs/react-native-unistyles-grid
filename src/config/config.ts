@@ -10,6 +10,10 @@ type Config = Partial<GridConfig> | ((theme: UnistylesTheme, rt: UnistylesMiniRu
 class UnistylesGridBuilder {
     #config = DEFAULT_CONFIG as GridConfig
 
+    #mock = {
+        parentWidth: 0,
+    }
+
     init = (config: Config) => {
         const computedConfig = typeof config === 'function'
             // @ts-ignore
@@ -19,6 +23,17 @@ class UnistylesGridBuilder {
         this.#config = {
             ...DEFAULT_CONFIG,
             ...computedConfig,
+        }
+    }
+
+    private setParentWidth = (width: number) => {
+        this.#mock.parentWidth = width
+    }
+
+    get mock() {
+        return {
+            ...this.#mock,
+            setParentWidth: this.setParentWidth,
         }
     }
 
