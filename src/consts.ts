@@ -6,6 +6,7 @@ export const DEFAULT_CONFIG = {
         paddingHorizontal: 0,
     },
     debug: false,
+    parentWidth: 0
 }
 
 export const COLUMN_COUNT = 12 as const
