@@ -9,7 +9,7 @@ import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { Debug } from './Debug'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
-    if (React.isValidElement(element) && element.type === Col) {
+    if (React.isValidElement(element as {}) && element.type === Col) {
         return true
     }
 

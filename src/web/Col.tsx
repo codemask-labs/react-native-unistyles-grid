@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { reduceObject } from '../utils'
+import { isDefined, reduceObject } from '../utils'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & ColStyles>> = ({
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
                     switch (true) {
                         case prop === true:
                         case typeof prop === 'object' && prop.span === true:
-                        case typeof prop === 'object' && !prop.span:
+                        case typeof prop === 'object' && prop.span === undefined:
                             return 1
                         default:
                             return undefined
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
                 })
                 : 1,
             marginLeft: reduceObject(props, prop => {
-                if (typeof prop === 'object' && prop.offset) {
+                if (typeof prop === 'object' && isDefined(prop.offset)) {
                     const size = getSize(prop.offset)
 
                     return size === '100%'

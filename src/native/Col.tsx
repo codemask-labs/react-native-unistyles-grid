@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { reduceObject } from '../utils'
+import { isDefined, reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
             }
 
             const colCount = typeof size === 'string'
-                ? parseInt(size)
+                ? parseInt(size, 10)
                 : size
             const width = colCount * colSize
             const gapBetweenColumns = (colCount - 1) * columnGap
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
                     switch (true) {
                         case prop === true:
                         case typeof prop === 'object' && prop.span === true:
-                        case typeof prop === 'object' && !prop.span:
+                        case typeof prop === 'object' && prop.span === undefined:
                             return 1
                         default:
                             return 0
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
                 })
                 : 1,
             marginLeft: reduceObject(props, prop => {
-                if (typeof prop === 'object' && prop.offset) {
+                if (typeof prop === 'object' && isDefined(prop.offset)) {
                     const size = getSizeInPx(prop.offset)
 
                     return typeof size === 'number'

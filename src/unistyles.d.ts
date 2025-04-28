@@ -10,10 +10,8 @@ type StyleValues = {
 
 type GridStyleSheet = Record<string, StyleValues | ((...args: any) => StyleValues)>
 
-type CreateStyleSheet = {
-    <S extends GridStyleSheet>(styles: S): {
-        [K in keyof S]: S[K] extends (...args: infer A) => any ? (...args: A) => any : any
-    }
+type CreateStyleSheet = <S extends GridStyleSheet>(styles: S) => {
+    [K in keyof S]: S[K] extends (...args: infer A) => any ? (...args: A) => any : any
 }
 
 declare module 'react-native-unistyles' {

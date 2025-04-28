@@ -17,6 +17,8 @@ export default [
                     'ignoreRestSiblings': true,
                 },
             ],
+            'functional/immutable-data': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
         },
     },
 ]
