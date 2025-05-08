@@ -42,8 +42,18 @@ export type ContainerProps = Partial<Pick<GridConfig, 'rowGap'>> & {
 
 type SimpleGridConfig = Omit<typeof DEFAULT_CONFIG, 'debug' | 'containerStyles'>
 
-type AvailableContainerStyles = 'paddingVertical' | 'paddingHorizontal' | 'paddingTop' | 'paddingRight' | 'paddingBottom' | 'paddingLeft'
-type ContainerStyles = {
+type AvailableContainerStyles =
+    | 'paddingVertical'
+    | 'paddingHorizontal'
+    | 'paddingTop'
+    | 'paddingRight'
+    | 'paddingBottom'
+    | 'paddingLeft'
+    | 'justifyContent'
+    | 'alignItems'
+    | 'alignContent'
+
+export type ContainerStyles = {
     [S in AvailableContainerStyles]?: WithBreakpoint<number>
 }
 
