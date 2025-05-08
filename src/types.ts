@@ -54,7 +54,7 @@ type AvailableContainerStyles =
     | 'alignContent'
 
 export type ContainerStyles = {
-    [S in AvailableContainerStyles]?: WithBreakpoint<number>
+    [S in AvailableContainerStyles]?: WithBreakpoint<ViewStyle[S]>
 }
 
 export type GridConfig =
