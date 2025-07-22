@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, reduceObject } from '../utils'
+import { createStyles, isDefined, reduceObject } from '../utils'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { getContextValues } from './nativeUtils'
 
@@ -12,7 +11,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     style,
     ...props
 }) => {
-    const { styles } = useStyles(stylesheet)
+    const styles = useStyles()
     const context = useContext(UnistylesGridContext)
 
     return (
@@ -22,7 +21,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     )
 }
 
-const stylesheet = createStyleSheet({
+const { useStyles } = createStyles({
     col: (
         props: ColProps,
         context: UnistylesGridContextType,
@@ -35,7 +34,7 @@ const stylesheet = createStyleSheet({
             }
 
             const colCount = typeof size === 'string'
-                ? parseInt(size)
+                ? parseInt(size, 10)
                 : size
             const width = colCount * colSize
             const gapBetweenColumns = (colCount - 1) * columnGap
@@ -61,7 +60,7 @@ const stylesheet = createStyleSheet({
                     switch (true) {
                         case prop === true:
                         case typeof prop === 'object' && prop.span === true:
-                        case typeof prop === 'object' && !prop.span:
+                        case typeof prop === 'object' && prop.span === undefined:
                             return 1
                         default:
                             return 0
@@ -69,7 +68,7 @@ const stylesheet = createStyleSheet({
                 })
                 : 1,
             marginLeft: reduceObject(props, prop => {
-                if (typeof prop === 'object' && prop.offset) {
+                if (typeof prop === 'object' && isDefined(prop.offset)) {
                     const size = getSizeInPx(prop.offset)
 
                     return typeof size === 'number'

@@ -1,9 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { createStyleSheet, reduceObject } from '../utils'
+import { createStyles, isDefined, reduceObject } from '../utils'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & ColStyles>> = ({
@@ -11,7 +10,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     style,
     ...props
 }) => {
-    const { styles } = useStyles(stylesheet)
+    const styles = useStyles()
 
     return (
         <View style={[style, styles.col(props)]}>
@@ -20,7 +19,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     )
 }
 
-const stylesheet = createStyleSheet({
+const { useStyles } = createStyles({
     col: ((props: ColProps) => {
         const getSize = (size: number | string) => {
             if (size === COLUMN_COUNT) {
@@ -28,8 +27,8 @@ const stylesheet = createStyleSheet({
             }
 
             const span = typeof size === 'string'
-                ? parseInt(size)
-                : size ?? 0
+                ? parseInt(size, 10)
+                : size
 
             return `((${COLUMN_SIZE_CSS_VALUE} * ${span}) + ${span - 1} * ${COLUMN_GAP_CSS_VALUE})`
         }
@@ -66,7 +65,7 @@ const stylesheet = createStyleSheet({
                     switch (true) {
                         case prop === true:
                         case typeof prop === 'object' && prop.span === true:
-                        case typeof prop === 'object' && !prop.span:
+                        case typeof prop === 'object' && prop.span === undefined:
                             return 1
                         default:
                             return undefined
@@ -74,7 +73,7 @@ const stylesheet = createStyleSheet({
                 })
                 : 1,
             marginLeft: reduceObject(props, prop => {
-                if (typeof prop === 'object' && prop.offset) {
+                if (typeof prop === 'object' && isDefined(prop.offset)) {
                     const size = getSize(prop.offset)
 
                     return size === '100%'

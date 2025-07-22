@@ -1,6 +1,6 @@
 {
     "name": "react-native-unistyles-grid",
-    "version": "0.7.2",
+    "version": "1.0.0-beta.1",
     "type": "module",
     "author": "codemask-labs",
     "homepage": "https://github.com/codemask-labs/react-native-unistyles-grid",
@@ -45,7 +45,12 @@
     },
     "scripts": {
         "build": "unbuild",
-        "format": "dprint fmt"
+        "format": "dprint fmt",
+        "format-check": "dprint check",
+        "lint": "eslint src",
+        "typecheck": "tsc --noEmit",
+        "prepare": "husky",
+        "precommit": "concurrently 'bun lint' 'bun typecheck' 'bun format-check'"
     },
     "files": [
         "dist"
@@ -56,11 +61,17 @@
         "react-native-unistyles": ">=2.0.0"
     },
     "devDependencies": {
-        "react-native-web": "0.19.13",
-        "typescript": "5.8.2",
-        "dprint": "0.49.1",
+        "react-native-nitro-modules": "0.26.4",
+        "react-native-web": "0.20.0",
+        "typescript": "5.8.3",
+        "dprint": "0.50.1",
         "unbuild": "3.5.0",
-        "@types/node": "22.13.17",
-        "@types/react": "18.3.12"
+        "@types/node": "24.0.15",
+        "@types/react": "18.3.12",
+        "husky": "9.1.7",
+        "concurrently": "9.2.0",
+        "eslint": "9.31.0",
+        "eslint-config-codemask": "2.2.1",
+        "react-native-unistyles": "3.0.5"
     }
 }

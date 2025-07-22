@@ -1,15 +1,14 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ColProps, OrderValue, RowProps, RowStyles } from '../types'
-import { createStyleSheet, getClosestBreakpointValue, getIsHidden, updateObject } from '../utils'
+import { createStyles, getClosestBreakpointValue, getIsHidden, updateObject } from '../utils'
 import { Col } from './Col'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { Debug } from './Debug'
 
 const isValidCol = (element: any): element is React.ReactElement<ColProps> => {
-    if (React.isValidElement(element) && element.type === Col) {
+    if (React.isValidElement(element as {}) && element.type === Col) {
         return true
     }
 
@@ -23,7 +22,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     style,
     ...props
 }) => {
-    const { styles } = useStyles(stylesheet)
+    const styles = useStyles()
     const context = useContext(UnistylesGridContext)
     const newContext = updateObject(context, props)
 
@@ -89,7 +88,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     )
 }
 
-const stylesheet = createStyleSheet({
+const { useStyles } = createStyles({
     row: (context: UnistylesGridContextType) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
