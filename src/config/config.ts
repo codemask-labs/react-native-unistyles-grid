@@ -18,17 +18,6 @@ class UnistylesGridBuilder {
         parentWidth: 0,
     }
 
-    get mock() {
-        return {
-            ...this.#mock,
-            setParentWidth: this.setParentWidth,
-        }
-    }
-
-    get config() {
-        return this.#config
-    }
-
     init = (config: Config) => {
         const computedConfig = typeof config === 'function'
             // @ts-expect-error - mini runtime is hidden
@@ -44,6 +33,17 @@ class UnistylesGridBuilder {
 
     private setParentWidth = (width: number) => {
         this.#mock.parentWidth = width
+    }
+
+    get mock() {
+        return {
+            ...this.#mock,
+            setParentWidth: this.setParentWidth,
+        }
+    }
+
+    get config() {
+        return this.#config
     }
 }
 
