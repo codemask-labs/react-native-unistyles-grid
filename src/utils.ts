@@ -1,5 +1,6 @@
+import * as unistyles from 'react-native-unistyles'
 import { UnistylesBreakpoints, UnistylesRuntime } from 'react-native-unistyles'
-import { ColProps, UniBreakpointValues } from './types'
+import { ColProps, GridStyleSheet, UniBreakpointValues } from './types'
 
 export const reduceObject = <TObj extends Record<string, unknown>, TReducer>(
     obj: TObj,
@@ -15,7 +16,7 @@ export const updateObject = <TObj extends Record<string, unknown>>(obj: TObj, up
     } as TObj
 }
 
-export const isBreakpoint = (breakpoint: unknown): breakpoint is keyof UnistylesBreakpoints => {
+export const isBreakpoint = (breakpoint: unknown): breakpoint is keyof unistyles.UnistylesBreakpoints => {
     return String(breakpoint) in UnistylesRuntime.breakpoints
 }
 
@@ -51,3 +52,24 @@ export const getIsHidden = (props: ColProps) => {
 }
 
 export const isDefined = <T>(value: T): value is NonNullable<T> => value !== undefined && value !== null
+
+// Id for react-native-unistyles 3.0
+// eslint-disable-next-line functional/no-let
+let id = 1
+
+export const createStyles = <S extends GridStyleSheet>(styles: S) => {
+    if (isDefined(unistyles.createStyleSheet)) {
+        const stylesheet = unistyles.createStyleSheet(styles)
+
+        return {
+            useStyles: () => unistyles.useStyles(stylesheet).styles,
+        }
+    }
+
+    // @ts-expect-error hidden second argument
+    const stylesheet = unistyles.StyleSheet.create(styles, id++)
+
+    return {
+        useStyles: () => stylesheet,
+    }
+}

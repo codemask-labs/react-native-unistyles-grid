@@ -1,6 +1,7 @@
-import { ViewStyle } from 'react-native'
-import { UnistylesBreakpoints } from 'react-native-unistyles'
-import { DEFAULT_CONFIG } from './consts'
+import type { CSSProperties } from 'react'
+import type { ViewStyle } from 'react-native'
+import type { UnistylesBreakpoints } from 'react-native-unistyles'
+import type { DEFAULT_CONFIG } from './consts'
 
 type SpanValue = number | 'auto' | true | (string & {})
 
@@ -55,3 +56,15 @@ export type GridConfig =
         debug?: boolean
         containerStyles?: ContainerStyles
     }
+
+type AllStyles = ViewStyle | CSSProperties
+
+type StyleValues = {
+    [propName in keyof AllStyles]?: WithBreakpoint<AllStyles[propName]>
+}
+
+export type GridStyleSheet = Record<string, StyleValues | ((...args: any) => StyleValues)>
+
+export type CreateStyleSheet = <S extends GridStyleSheet>(styles: S) => {
+    [K in keyof S]: S[K] extends (...args: infer A) => any ? (...args: A) => any : any
+}

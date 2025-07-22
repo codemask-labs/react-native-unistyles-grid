@@ -1,10 +1,12 @@
 import React from 'react'
 import { View } from 'react-native'
-import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
+import { createStyles } from '../utils'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Debug = () => {
+    const styles = useStyles()
+
     return (
         <View style={styles.debugContainer}>
             {Array.from({ length: COLUMN_COUNT }, (_, index) => (
@@ -17,7 +19,7 @@ export const Debug = () => {
     )
 }
 
-const styles = StyleSheet.create({
+const { useStyles } = createStyles({
     debugContainer: {
         display: 'flex',
         flexDirection: 'row',

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { StyleSheet } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ColProps, OrderValue, RowProps, RowStyles } from '../types'
-import { getClosestBreakpointValue, getIsHidden, updateObject } from '../utils'
+import { createStyles, getClosestBreakpointValue, getIsHidden, updateObject } from '../utils'
 import { Col } from './Col'
 import { UnistylesGridContext, UnistylesGridContextType } from './context'
 import { Debug } from './Debug'
@@ -23,6 +22,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     style,
     ...props
 }) => {
+    const styles = useStyles()
     const context = useContext(UnistylesGridContext)
     const newContext = updateObject(context, props)
 
@@ -88,7 +88,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     )
 }
 
-const styles = StyleSheet.create({
+const { useStyles } = createStyles({
     row: (context: UnistylesGridContextType) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',

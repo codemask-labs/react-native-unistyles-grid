@@ -1,9 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
-import { StyleSheet } from 'react-native-unistyles'
 import { UnistylesGrid } from '../config'
 import { ColProps, RowProps, RowStyles } from '../types'
-import { getIsHidden } from '../utils'
+import { createStyles, getIsHidden } from '../utils'
 import { Col } from './Col'
 import { Debug } from './Debug'
 import { COLUMN_GAP_CSS_NAME, ROW_GAP_CSS_VALUE } from './vars'
@@ -21,6 +20,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     style,
     ...props
 }) => {
+    const styles = useStyles()
     const filteredChildren = React.Children.toArray(children)
         .filter((col): col is React.ReactElement<ColProps> => {
             if (!isValidCol(col)) {
@@ -42,7 +42,7 @@ export const Row: React.FunctionComponent<React.PropsWithChildren<RowProps & Row
     )
 }
 
-const styles = StyleSheet.create({
+const { useStyles } = createStyles({
     row: (props: RowProps) => {
         const columnGap = props.columnGap ?? UnistylesGrid.config.columnGap
 

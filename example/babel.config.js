@@ -16,7 +16,10 @@ module.exports = function(api) {
                     },
                 },
             ],
-            ['react-native-unistyles/plugin'],
+            ['react-native-unistyles/plugin', {
+                root: 'src',
+                autoProcessPaths: ['react-native-unistyles-grid/src'],
+            }],
         ],
     }
 }

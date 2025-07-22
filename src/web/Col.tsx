@@ -1,9 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
-import { StyleSheet } from 'react-native-unistyles'
 import { COLUMN_COUNT } from '../consts'
 import { ColProps, ColStyles } from '../types'
-import { isDefined, reduceObject } from '../utils'
+import { createStyles, isDefined, reduceObject } from '../utils'
 import { COLUMN_GAP_CSS_VALUE, COLUMN_SIZE_CSS_VALUE } from './vars'
 
 export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & ColStyles>> = ({
@@ -11,6 +10,8 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     style,
     ...props
 }) => {
+    const styles = useStyles()
+
     return (
         <View style={[style, styles.col(props)]}>
             {children}
@@ -18,7 +19,7 @@ export const Col: React.FunctionComponent<React.PropsWithChildren<ColProps & Col
     )
 }
 
-const styles = StyleSheet.create({
+const { useStyles } = createStyles({
     col: ((props: ColProps) => {
         const getSize = (size: number | string) => {
             if (size === COLUMN_COUNT) {
